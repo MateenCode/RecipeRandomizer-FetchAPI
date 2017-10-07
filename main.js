@@ -1,43 +1,32 @@
-const button = document.querySelector(".button");
-const display = document.querySelector(".display");
+let button = document.querySelector('#generate');
+let display = document.querySelector('#display');
 
-//when button is click - we need it to fire the fetch
+button.addEventListener('click', function(event){
 
-button.addEventListener("click", function(){
-  display.textContent = "";
+  display.textContent="";
   event.preventDefault();
-
-  fetch("http://www.weeatt.com/api/v1/recipes?qs=sweet&auth_token=aDZTf4BdHGA1apkeU0UY", {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'x-api-key': '72f54c000aa4'
-      }
-    })
-    .then(function(response) {
+  
+  fetch('http://recipepuppyproxy.herokuapp.com/api/?i=$', {
+  })
+    .then(function (response) {
       return response.json()
     })
-    .then(function(data) {
-      getFood(data)
+    .then(function (data) {
+      findFood(data)
     })
 
 })
 
-function getFood(data){
+function findFood(data){
 
-  displayResults=""
+displayResults="";
 
-for (let i=0; i<data.results.length; i++){
-  dish = data.results[Math.floor(Math.random()*data.results.length)];
-}
-console.log(dish)
+  for(i=0; i<data.results.length; i++){
+    var dish = data.results[Math.floor(Math.random()*data.results.length)];
+  }
+displayResults = `<h3><a href="${dish.href}">${dish.title}</a></h3>
+                  <img src="${dish.thumbnail}"/>
+                  <p>${dish.ingredients}</p>`
 
-displayResults=`
-  <h1>${dish.name}</h1>
-  <img src="${dish.images[0].large_image_path}"/>
-  <p>${dish.ingredients}</p>
-  <br>
-
-`
-display.insertAdjacentHTML('afterbegin', displayResults);
+                display.insertAdjacentHTML('afterbegin', displayResults);
 }

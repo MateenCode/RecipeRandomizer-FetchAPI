@@ -4,12 +4,16 @@ margin: 0 auto;
 text-align: center;
 }
 
-img {
-  max-width: 100%;
+#generate{
+  margin-top: 15%;
 }
 
-button{
-  margin: 10px;
+img {
+  width: 30%;
+}
+
+#display{
+  margin-top: 3%;
 }
 
 /*-------RESPONSIVE DESIGN-------*/
